@@ -1,5 +1,1 @@
-[
-    {"campaign_name": "SECOM_P", "url": "https://ads.kwai.com/?accountId=60161580#/index", "ativos": "2", "startdate": " ", "enddate": " "}, 
-    {"campaign_name": "teste", "url": "https://ads.kwai.com/?accountId=60161580#/management", "ativos": "3", "startdate": " ", "enddate": " "}, 
-    {"campaign_name": "X", "url": "X", "ativos": 4}
-]
+[{"id": "60161580", "ativos": "2", "startdate": "20240712", "enddate": " "}, {"id": "60161581", "ativos": "2", "startdate": "20241212", "enddate": " "}, {"id": "10", "ativos": 4}]

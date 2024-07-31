@@ -1,13 +1,18 @@
 import json
 import os
+#############################
+# data do dia será a end date
+from datetime import date
+enddate = date.today()
+#############################
 
 if os.path.exists('config.json'):
     with open('config.json', 'r') as f:
         campaign_id = json.load(f)
 else:
     campaign_id = [
-        {"campaign_name": "SECOM_P", "url": "https://ads.kwai.com/?accountId=60161580#/index", "ativos": " ", "startdate":" ", "enddate":" "},
-        {"campaign_name": "teste", "url": "https://ads.kwai.com/?accountId=60161580#/management", "ativos": " ", "startdate":" ", "enddate":" "},
+        {"id": "60161580", "ativos": " ", "startdate":" ", "enddate":" "},
+        {"id": "60161581", "ativos": " ", "startdate":" ", "enddate":" "},
     ]
 
 if not isinstance(campaign_id, list):
@@ -16,19 +21,23 @@ if not isinstance(campaign_id, list):
 
 for i in range(len(campaign_id)):
     if campaign_id[i]['ativos'] == ' ':
-        print(f'A campanha {campaign_id[i]["campaign_name"]} ainda não tem o número de ativos selecionado.')
+        print(f'A campanha de id {campaign_id[i]["id"]} ainda não tem o número de ativos selecionado.')
         campaign_id[i]['ativos'] = input('Digite o número de ativos desta campanha: ')
+    elif campaign_id[i]['startdate'] == ' ':
+            print(f'A campanha de id {campaign_id[i]["id"]} ainda não tem data de inicio selecionada.')
+            campaign_id[i]['startdate'] = input('Digite a data de inicio da campanha (YYYY-MM-DD): ')
     else:
-        print(f'A campanha {campaign_id[i]["campaign_name"]} já possui {campaign_id[i]["ativos"]} ativos adicionados a base do robô.')
+        print(f'A campanha de id {campaign_id[i]["id"]} já possui {campaign_id[i]["ativos"]} ativos adicionados e {campaign_id[i]["startdate"]} como data de inicio a base do robô.')
+                
 add_campaign = input('Deseja adicionar uma nova campanha? (y/n): ')
 if add_campaign.lower() == 'y':
-    new_campaign_name = input('Digite a palavra-chave da nova campanha: ')
-    new_campaign_url = input('Digite a URL da nova campanha somente até #/: ')
+    new_campaign_id = input('Digite a id da nova campanha: ')
     new_campaign_ativos = input('Digite o número de ativos da nova campanha: ')
+    new_campaign_startdate = input('Digite a data de inicio da nova campanha (YYYY-MM-DD)')
     campaign_id.append({
-        "campaign_name": new_campaign_name,
-        "url": new_campaign_url,
-        "ativos": int(new_campaign_ativos)
+        "id": new_campaign_id,
+        "ativos": int(new_campaign_ativos),
+        "startdate": new_campaign_startdate
     })
     print(f'Seus novos dados são:\n{campaign_id}')
 
