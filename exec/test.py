@@ -48,7 +48,7 @@ time.sleep(2)
 # # input da data
 
 
-while i < (13 + int(data[0]['ativos'])):
+while i < (14 + int(data[0]['ativos'])):
     pg.press("tab")
     time.sleep(0.5)
     if i == 7:
@@ -59,6 +59,7 @@ while i < (13 + int(data[0]['ativos'])):
         time.sleep(3)
         i += 1
     elif i in [13 + 2*j for j in range(int(data[0]['ativos']))]:
+        print(f'{i}')
         pg.press('space')
         time.sleep(2)
         i += 1
