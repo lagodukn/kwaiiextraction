@@ -26,3 +26,4 @@ driver.find_element(By.ID, "email").send_keys("performance@novasb.com.br" )
 driver.find_element(By.ID, "password").send_keys("$NOVASB$2022@")
 driver.find_element(By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/div[2]/button").click()
 time.sleep(30)
+
