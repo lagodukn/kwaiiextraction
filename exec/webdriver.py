@@ -2,7 +2,8 @@ import time
 import os
 import json
 import pyautogui as pg
-from datetime import date
+from datetime import date, datetime
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -61,7 +62,15 @@ linhas = tabela.find_elements(By.TAG_NAME, 'tr')
 for linha in linhas:
      # Encontre todas as colunas (tds) da linha
     colunas = linha.find_elements(By.TAG_NAME, 'td')
-    print(colunas)
+    for coluna in colunas:
+        data_str = coluna.text
+        padrao = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$")
+        if padrao.match(data_str):
+            data_real = datetime.strptime(data_str, "%Y-%m-%d %H:%M:%S")
+            hora_real = data_real.time()
+            hora_atual = datetime.now().time()
+            if data_real.date() == date.today() and hora_real.hour == hora_atual.hour and hora_real.minute >= hora_atual.minute - 2:
+                print(data_str)
 driver.quit()
     # Verifique se a data na coluna é coerente com a data que você está procurando
     # data_coluna = colunas[1].text  # supondo que a data esteja na primeira coluna
