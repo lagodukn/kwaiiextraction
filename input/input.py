@@ -6,6 +6,7 @@ from datetime import date
 enddate = date.today()
 #############################
 
+## transformar isto em uma função de checagem se existe o config.json (transformar em dado de banco?)
 if os.path.exists('config.json'):
     with open('config.json', 'r') as f:
         data = json.load(f)
@@ -18,6 +19,8 @@ if not isinstance(data, list):
     print("Erro: o conteúdo do arquivo config.json é inválido.")
     exit(1)
 
+## transformar isto em uma função que gera um popup com inputfield para preenhimento de dados para fins de cadastro de um
+## novo item no config.json e checagem de existência de dados para ter uma presença dos dados por inteiro.
 for i in range(len(data)):
     if data[i]['ativos'] == ' ':
         print(f'A campanha de id {data[i]["id"]} ainda não tem o número de ativos selecionado.')
