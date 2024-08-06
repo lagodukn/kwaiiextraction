@@ -10,6 +10,8 @@ from selenium.webdriver.common.keys import Keys
 import tkinter as tk
 from tkinter import ttk
 from dotenv import load_dotenv
+import pandas as pd
+from tabulate import tabulate
 
 load_dotenv()
 enterkey = os.getenv("EMAIL")
@@ -31,7 +33,7 @@ def setup_driver(config, director):
         chrome_options.add_experimental_option("detach", True)
         driver = webdriver.Chrome(options=chrome_options)
         driver.maximize_window()
-        driver.get(f'{enterurl}{config[director]['id']}#{enterurlf}')
+        driver.get(f'{enterurl}{config[director]['id']}#/{enterurlf}')
         time.sleep(20)
     except:
         print('Deu ruim de entrar no site')
@@ -78,6 +80,16 @@ def setup_inside(driver, config, director):
                     target = colunas[i + 2].click()
                     time.sleep(30)
                     break
+    last = driver.downloads[-1]
+    return last
+
+def sheets_comparison(last):
+    df = pd.ExcelFile(last)
+    sheet_names = df.sheet_names
+    second = sheet_names[1]
+    df = df.parse(second)
+    print(tabulate(df.iloc[:,1:], headers='keys', tablefmt='psql'))
+    
 
 def main():
     config = load_config()
@@ -89,7 +101,7 @@ def main():
         popup.geometry(f"{largura}x{altura}")
         label = tk.Label(popup, text='Selecione o nome da campanha: ')
         label.pack()
-        nomes =[item['nome'] for item in config]
+        nomes = [item['nome'] for item in config]
         indice_var = tk.StringVar()
         indice_var.set(nomes[0])
         option = ttk.OptionMenu(popup, indice_var, *nomes)
@@ -99,7 +111,8 @@ def main():
             director = nomes.index(indice_var.get())
             driver = setup_driver(config, director)
             login(driver)
-            setup_inside(driver, config, director)
+            last = setup_inside(driver, config, director)
+            sheets_comparison(last)
             driver.quit()
             popup.destroy()
         button = tk.Button(popup, text='Executar', command=exec_script)
