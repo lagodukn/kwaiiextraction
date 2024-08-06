@@ -82,6 +82,15 @@ def setup_inside(driver, config, director):
                     break
     driver.get('chrome://downloads/')
     time.sleep(20)
+    # Get the latest downloaded file
+    downloads_dir = os.path.join(os.path.expanduser('~'), 'Downloads')
+    files = os.listdir(downloads_dir)
+    files.sort(key=lambda x: os.path.getmtime(os.path.join(downloads_dir, x)))
+    latest_file = files[-1]
+
+    # Read the Excel file
+    last = os.path.join(downloads_dir, latest_file)
+    sheets_comparison(last)
     return 
 
 def sheets_comparison(last):
