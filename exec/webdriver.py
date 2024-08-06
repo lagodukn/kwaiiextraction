@@ -80,18 +80,14 @@ def setup_inside(driver, config, director):
                     target = colunas[i + 2].click()
                     time.sleep(30)
                     break
-    driver.get('chrome://downloads/')
-    time.sleep(20)
-    # Get the latest downloaded file
+    return 
+def table_collector():
     downloads_dir = os.path.join(os.path.expanduser('~'), 'Downloads')
     files = os.listdir(downloads_dir)
     files.sort(key=lambda x: os.path.getmtime(os.path.join(downloads_dir, x)))
     latest_file = files[-1]
-
-    # Read the Excel file
     last = os.path.join(downloads_dir, latest_file)
-    sheets_comparison(last)
-    return 
+    return last
 
 def sheets_comparison(last):
     df = pd.ExcelFile(last)
@@ -122,8 +118,8 @@ def main():
             driver = setup_driver(config, director)
             login(driver)
             setup_inside(driver, config, director)
-            #last = setup_inside(driver, config, director)
-            #sheets_comparison(last)
+            last = table_collector()
+            sheets_comparison(last)
             driver.quit()
             popup.destroy()
         button = tk.Button(popup, text='Executar', command=exec_script)
