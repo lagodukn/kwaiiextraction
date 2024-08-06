@@ -80,8 +80,9 @@ def setup_inside(driver, config, director):
                     target = colunas[i + 2].click()
                     time.sleep(30)
                     break
-    last = driver.downloads[-1]
-    return last
+    driver.get('chrome://downloads/')
+    time.sleep(20)
+    return 
 
 def sheets_comparison(last):
     df = pd.ExcelFile(last)
@@ -111,8 +112,9 @@ def main():
             director = nomes.index(indice_var.get())
             driver = setup_driver(config, director)
             login(driver)
-            last = setup_inside(driver, config, director)
-            sheets_comparison(last)
+            setup_inside(driver, config, director)
+            #last = setup_inside(driver, config, director)
+            #sheets_comparison(last)
             driver.quit()
             popup.destroy()
         button = tk.Button(popup, text='Executar', command=exec_script)
