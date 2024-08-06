@@ -9,8 +9,14 @@
 # sendo assim, chamar o robo que vai passear dentro do site e coletar os devidos dados
 # logo após, coletar os dados e comparar com a tabela existente, para assim poder trocar os dados de lugar
 
-from datetime import date
-print(type(date.today()))
-a = '2024-08-02'
-if a == date.today():
-    print('é igual')
+from exec.webdriver import load_config, setup_driver, login, setup_inside
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+enterkey = os.getenv("EMAIL")
+enterpass = os.getenv("PASS")
+enterurl = os.getenv("URL")
+enterurlf = os.getenv("URLAST")
+
+print(enterurlf)

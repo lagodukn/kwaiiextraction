@@ -12,7 +12,7 @@ if os.path.exists('config.json'):
         data = json.load(f)
 else:
     data = [
-        {"url":"https://ads.kwai.com/?accountId=60161580#/index","id": "60161580", "ativos": " ", "startdate":" ", "enddate":" "},    
+        {"nome":"","id": "", "ativos": " ", "startdate":" ", "enddate":" "},    
     ]
 
 if not isinstance(data, list):
@@ -33,17 +33,16 @@ for i in range(len(data)):
                 
 add_campaign = input('Deseja adicionar uma nova campanha? (y/n): ')
 if add_campaign.lower() == 'y':
-    new_campaign_url = data[0]['url']
-    new_campaign_id = input('Digite a id da nova campanha: ')
+    new_campaign_name = input('Digite o nome da Campanha: ')
+    new_campaign_id = input('Digite a id kwai da nova campanha: ')
     new_campaign_ativos = input('Digite o número de ativos da nova campanha: ')
-    new_campaign_startdate = input('Digite a data de inicio da nova campanha (YYYY-MM-DD)')
+    new_campaign_startdate = input('Digite a data de inicio da nova campanha (YYYY-MM-DD): ')
     data.append({
-        "url": new_campaign_url,
+        "nome": new_campaign_name,
         "id": new_campaign_id,
         "ativos": int(new_campaign_ativos),
         "startdate": new_campaign_startdate
     })
-    print(f'Seus novos dados são:\n{data}')
 
 if os.path.exists('config.json'):
     with open('config.json', 'r') as f:
