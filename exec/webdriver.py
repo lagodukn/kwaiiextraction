@@ -20,7 +20,8 @@ enterkey = os.getenv("EMAIL")
 enterpass = os.getenv("PASS")
 enterurl = os.getenv("URL")
 enterurlf = os.getenv("URLAST")
-enterdir = os.getenv("PROFILE")
+entergoo = os.getenv("PROFILE_EMAIL")
+enterpassgoo = os.getenv("PROFILE_PASS")
 
 def load_config():
     if os.path.exists('config.json'):
@@ -33,11 +34,18 @@ def load_config():
 def setup_driver(config, director):
     try:
         options = Options() 
-        options.add_argument(f'--user-data-dir={enterdir}')  
-        options.add_argument("--enable-logging")
-        options.add_experimental_option("detach", True)
         driver = webdriver.Chrome(options=options)
         driver.maximize_window()
+        driver.get('https://google.com')
+        driver.find_element(By.XPATH, '//*[@id="gb"]/div/div[2]/a').click()
+        entrance = driver.find_element(By.XPATH, '//*[@id="identifierId"]')
+        entrance.send_keys(f'{entergoo}')
+        entrance.send_keys(Keys.ENTER)
+        time.sleep(10)
+        exitance = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
+        exitance.send_keys(enterpassgoo)
+        exitance.send_keys(Keys.ENTER)
+        time.sleep(20)
         driver.get(f'{enterurl}{config[director]['id']}#/{enterurlf}')
         time.sleep(20)
     except:
@@ -66,11 +74,11 @@ def setup_inside(driver, config, director):
     true_exportation = driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div/div[1]/div/div[2]/div[1]/button')
     export_button.click()
     time.sleep(5)
-    driver.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div[3]/div/div[2]').click()
+    driver.find_element(By.XPATH, '/html/body/div[6]/div/div[2]/div/div[2]/div[3]/div/div[2]/button/a').click()
     time.sleep(2)
     true_exportation.click()
     time.sleep(5)
-    tabela = driver.find_element(By.XPATH, '/html/body/div[6]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/table/tbody')
+    tabela = driver.find_element(By.XPATH, '/html/body/div[8]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/table/tbody')
     linhas = tabela.find_elements(By.TAG_NAME, 'tr')
     for linha in linhas:
         colunas = linha.find_elements(By.TAG_NAME, 'td')

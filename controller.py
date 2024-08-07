@@ -12,11 +12,20 @@
 from exec.webdriver import load_config, setup_driver, login, setup_inside
 from dotenv import load_dotenv
 import os
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
 
-load_dotenv()
-enterkey = os.getenv("EMAIL")
-enterpass = os.getenv("PASS")
-enterurl = os.getenv("URL")
-enterurlf = os.getenv("URLAST")
+enter = os.getenv("PROFILE_EMAIL")
+passw = os.getenv("PROFILE_PASS")
 
-print(enterurlf)
+options = Options() 
+driver = webdriver.Chrome(options=options)
+driver.maximize_window()
+time.sleep(40)
