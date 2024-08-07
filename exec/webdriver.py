@@ -29,9 +29,10 @@ def load_config():
     
 def setup_driver(config, director):
     try:
-        chrome_options = Options() 
-        chrome_options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome(options=chrome_options)
+        options = Options() 
+        options.add_experimental_option("detach", True)
+        
+        driver = webdriver.Chrome(options=options)
         driver.maximize_window()
         driver.get(f'{enterurl}{config[director]['id']}#/{enterurlf}')
         time.sleep(20)
