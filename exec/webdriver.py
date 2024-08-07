@@ -7,6 +7,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+print(ChromeDriverManager().install())
 import tkinter as tk
 from tkinter import ttk
 from dotenv import load_dotenv
@@ -18,6 +21,8 @@ enterkey = os.getenv("EMAIL")
 enterpass = os.getenv("PASS")
 enterurl = os.getenv("URL")
 enterurlf = os.getenv("URLAST")
+enterdir = os.getenv("PROFILE")
+print(enterdir)
 
 def load_config():
     if os.path.exists('config.json'):
@@ -31,8 +36,8 @@ def setup_driver(config, director):
     try:
         options = Options() 
         options.add_experimental_option("detach", True)
-        
-        driver = webdriver.Chrome(options=options)
+        options.add_argument(f"--user-data-dir={enterdir}")        
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.maximize_window()
         driver.get(f'{enterurl}{config[director]['id']}#/{enterurlf}')
         time.sleep(20)
