@@ -7,8 +7,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 import tkinter as tk
 from tkinter import ttk
 from dotenv import load_dotenv
@@ -93,7 +91,8 @@ def setup_inside(driver, config, director):
                     target = colunas[i + 2].click()
                     time.sleep(30)
                     break
-    return 
+    return
+
 def table_collector():
     downloads_dir = os.path.join(os.path.expanduser('~'), 'Downloads')
     files = os.listdir(downloads_dir)
@@ -109,7 +108,6 @@ def sheets_comparison(last):
     df = df.parse(second)
     print(tabulate(df.iloc[:,1:], headers='keys', tablefmt='psql'))
     
-
 def main():
     config = load_config()
     if config:
